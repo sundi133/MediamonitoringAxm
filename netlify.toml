@@ -12,8 +12,10 @@
   # Node version
   NODE_VERSION = "20"
   
-  # Skip secrets scanning for public Supabase keys (they're meant to be client-side)
-  SECRETS_SCAN_OMIT_KEYS = "SUPABASE_ANON_KEY,VITE_SUPABASE_PROJECT_ID,VITE_SUPABASE_ANON_KEY"
+  # Skip secrets scanning for public Supabase keys (they're meant to be client-side).
+  # Also omit the two scan-config keys themselves, otherwise the scanner flags
+  # their own values where they appear in this file.
+  SECRETS_SCAN_OMIT_KEYS = "SUPABASE_ANON_KEY,VITE_SUPABASE_PROJECT_ID,VITE_SUPABASE_ANON_KEY,SECRETS_SCAN_OMIT_KEYS,SECRETS_SCAN_OMIT_PATHS"
   
   # Also ignore the supabase temp directory in secrets scan
   SECRETS_SCAN_OMIT_PATHS = "supabase/.temp"
