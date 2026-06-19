@@ -88,20 +88,24 @@ export const AuthForm: React.FC = () => {
 
     if (result.success) {
       setSuccess("Account created successfully! You are now signed in.");
+    } else if (result.error?.includes("already exists")) {
+      // Email already registered: move the user straight to the Sign In tab,
+      // prefill their email, and show the message there so it can't be missed.
+      setSignInData({ email: signUpData.email, password: "" });
+      setActiveTab("signin");
+      setError("This email is already registered. Please sign in instead.");
     } else {
       setError(result.error || "Sign up failed");
-
-      // If email already exists, switch to sign in tab and prefill email
-      if (result.error?.includes("already exists")) {
-        setSignInData({ email: signUpData.email, password: "" });
-        setTimeout(() => {
-          setActiveTab("signin");
-          setError("This email is already registered. Please sign in instead.");
-        }, 2000);
-      }
     }
 
     setIsSubmitting(false);
+  };
+
+  // Clear any stale error/success when the user switches tabs manually
+  const handleTabChange = (value: string) => {
+    setError("");
+    setSuccess("");
+    setActiveTab(value);
   };
 
   return (
@@ -134,7 +138,7 @@ export const AuthForm: React.FC = () => {
           <CardContent>
             <Tabs
               value={activeTab}
-              onValueChange={setActiveTab}
+              onValueChange={handleTabChange}
               className="w-full"
             >
               <TabsList className="grid w-full grid-cols-2 h-12 p-1.5 bg-slate-100 dark:bg-slate-800 rounded-xl">
