@@ -306,7 +306,6 @@ export class TavilyService {
       "bihar",
       "patna",
       "gaya",
-      "assam",
       "orissa",
       "bhubaneswar",
       "cuttack",
