@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Local / editor
+.claude/
+.DS_Store
+*.local
+.env
+.env.*
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
